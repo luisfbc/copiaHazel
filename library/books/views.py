@@ -7,6 +7,16 @@ class AuthorViewSet(viewsets.ModelViewSet):
     serializer_class = AuthorSerializer
     permission_classes = []
 
+class GenreViewSet(viewsets.ModelViewSet):
+    queryset = Genre.objects.all().order_by('name')
+    serializer_class = GenreSerializer
+    permission_classes = []
+
+class LanguageViewSet(viewsets.ModelViewSet):
+    queryset = Language.objects.all().order_by('name')
+    serializer_class = LanguageSerializer
+    permission_classes = []
+
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all().order_by('name')
     serializer_class = BookSerializer
@@ -15,4 +25,9 @@ class BookViewSet(viewsets.ModelViewSet):
 class BooksAuthorsViewSet(viewsets.ModelViewSet):
     queryset = BooksAuthors.objects.all()
     serializer_class = BooksAuthorsSerializer
+    permission_classes = []
+
+class BooksGenreViewSet(viewsets.ModelViewSet):
+    queryset = BooksGenre.objects.all()
+    serializer_class = BooksGenreSerializer
     permission_classes = []
