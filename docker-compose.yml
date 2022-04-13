@@ -14,7 +14,7 @@ services:
       - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
     networks:
       - our-library-net
-    command: "-p 55${PORT}"
+    command: -p 5524
 
   web24:
     build: .
