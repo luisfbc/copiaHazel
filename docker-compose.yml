@@ -27,7 +27,7 @@ services:
       PSQL_USERNAME: "${PSQL_USER}"
       PSQL_PASS: "${PSQL_PASS}"
       PSQL_PASSWORD: "${PSQL_PASS}"
-      PSQL_HOST: "postgres"
+      PSQL_HOST: "localhost"
       PSQL_PORT: "55${PORT}"
       JWT_TOKEN_TIME: "${JWT_TOKEN_TIME}"
     volumes:
