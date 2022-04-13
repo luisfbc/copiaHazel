@@ -4,9 +4,10 @@ services:
     image: postgres:14-alpine
     container_name: postgres24
     environment:
-      - "POSTGRES_PASSWORD=${PSQL_PASS}"
-      - "POSTGRES_DB=${PSQL_DB}"
-      - "POSTGRES_USER=${PSQL_USER}"
+      POSTGRES_PASSWORD: "${PSQL_PASS}"
+      POSTGRES_DB: "${PSQL_DB}"
+      POSTGRES_USERNAME: "${PSQL_USER}"
+      POSTGRES_USER: "${PSQL_USER}"
     ports:
       - "100${PORT}:55${PORT}"
     volumes:
@@ -22,12 +23,13 @@ services:
     depends_on: 
       - postgres_db24
     environment:
-      - "PSQL_DBNAME=${PSQL_DB}"
-      - "PSQL_USERNAME=${PSQL_USER}"
-      - "PSQL_PASS=${PSQL_PASS}"
-      - "PSQL_HOST=postgres_db${PORT}" # You must use the previous command in order to get this HOST172.${PORT}.0.20
-      - "PSQL_PORT=55${PORT}"
-      - "JWT_TOKEN_TIME=${JWT_TOKEN_TIME}"
+      PSQL_DBNAME: "${PSQL_DB}"
+      PSQL_USERNAME: "${PSQL_USER}"
+      PSQL_PASS: "${PSQL_PASS}"
+      PSQL_PASSWORD: "${PSQL_PASS}"
+      PSQL_HOST: "postgres_db${PORT}"
+      PSQL_PORT: "55${PORT}"
+      JWT_TOKEN_TIME: "${JWT_TOKEN_TIME}"
     volumes:
     # "RUTA/DEL/SERVIDOR:RUTA/DENTRO/DEL/CONTENEDOR"
       - "${DJANGO_VOLUME_PATH}:/usr/src/django/library"
