@@ -2,36 +2,37 @@ version: '3'
 services:
   postgres_db24:
     image: postgres:14-alpine
-    container_name: "postgres24"
+    container_name: postgres24
     environment:
-      - "POSTGRES_PASSWORD=admin"
-      - "POSTGRES_DB=luis_barrondb"
-      - "POSTGRES_USER=luis_barron"
+      - "POSTGRES_PASSWORD=${PSQL_PASS}"
+      - "POSTGRES_DB=${PSQL_DB}"
+      - "POSTGRES_USER=${PSQL_USER}"
     ports:
-      - "10024:5524"
+      - "100${PORT}:55${PORT}"
     volumes:
-      - "/home/luis_barron/postgres:/usr/src/postgres"
+      - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
     networks:
       - our-library-net
-    command: -p 5524
+    command: "-p 55${PORT}"
 
   web24:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && pytest && python manage.py runserver 0.0.0.0:8024"
-    container_name: "django24"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
+    container_name: "django${PORT}"
     depends_on: 
       - postgres_db24
     environment:
-      - "PSQL_DBNAME=luis_barrondb"
-      - "PSQL_USERNAME=luis_barron"
-      - "PSQL_PASS=admin"
-      - "PSQL_HOST=172.24.0.10" # You must use the previous command in order to get this HOST172.24.0.20
-      - "PSQL_PORT=5524"
+      - "PSQL_DBNAME=${PSQL_DB}"
+      - "PSQL_USERNAME=${PSQL_USER}"
+      - "PSQL_PASS=${PSQL_PASS}"
+      - "PSQL_HOST=postgres_db${PORT}" # You must use the previous command in order to get this HOST172.${PORT}.0.20
+      - "PSQL_PORT=55${PORT}"
+      - "JWT_TOKEN_TIME=${JWT_TOKEN_TIME}"
     volumes:
     # "RUTA/DEL/SERVIDOR:RUTA/DENTRO/DEL/CONTENEDOR"
-      - "/home/luis_barron/Django-REST-Exercise:/usr/src/django/library"
+      - "${DJANGO_VOLUME_PATH}:/usr/src/django/library"
     ports:
-      - "9024:8024"
+      - "90${PORT}:80${PORT}"
     networks:
       - our-library-net
 

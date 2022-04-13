@@ -127,3 +127,15 @@ def test_language_capital_letter(name):
 
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
+
+
+@pytest.mark.django_db
+def test_author_with_monkey(monkeypatch):
+    author = Author.objects.create(name='nombre', last_name='apellido')
+    def model_count_mock():
+        return 4
+    print(dir(Author.objects))
+    monkeypatch.setattr(Author.objects, 'count', model_count_mock)
+
+    assert Author.objects.count() == 4
+    print('Haciendo el monkeypatch')
