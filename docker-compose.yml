@@ -18,6 +18,7 @@ services:
 
   web24:
     build: .
+    image: my-django-image24:2.0.0 
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
     container_name: "django${PORT}"
     depends_on: 
@@ -27,7 +28,7 @@ services:
       PSQL_USERNAME: "${PSQL_USER}"
       PSQL_PASS: "${PSQL_PASS}"
       PSQL_PASSWORD: "${PSQL_PASS}"
-      PSQL_HOST: "localhost"
+      PSQL_HOST: "postgres_db${PORT}"
       PSQL_PORT: "55${PORT}"
       JWT_TOKEN_TIME: "${JWT_TOKEN_TIME}"
     volumes:
