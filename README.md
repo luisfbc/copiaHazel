@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/luisfbc/copiaHazel.svg?branch=main)](https://app.travis-ci.com/luisfbc/copiaHazel)
+
 # Django-and-Django-REST-Framework
 
 ## Setup
